@@ -1,7 +1,7 @@
-// Global variables
-let firstNumber = 0;
+// --- Global variables ---
+let firstNumber = -1;
 let operator = '';
-let secondNumber = 0;
+let secondNumber = -1;
 let strDisplay = '';
 let addToFirstNumber = true;
 
@@ -12,7 +12,7 @@ const multiplyOperator = document.getElementById('*');
 const minusOperator = document.getElementById('-');
 const plusOperator = document.getElementById('+');
 
-// Events
+// --- Events ---
 document.getElementById('0').addEventListener('click', () => numberClick(0));
 document.getElementById('1').addEventListener('click', () => numberClick(1));
 document.getElementById('2').addEventListener('click', () => numberClick(2));
@@ -30,16 +30,19 @@ minusOperator.addEventListener('click', () => operatorClick('-'));
 plusOperator.addEventListener('click', () => operatorClick('+'));
 
 document.getElementById('=').addEventListener('click', () => {
-  const result = operate(firstNumber, secondNumber, operator);
-  display.textContent = result;
-  resetGlobalVariables();
+  if (operator && firstNumber != -1 && secondNumber != -1) {
+    const result = Math.round(operate(firstNumber, secondNumber, operator) * 100) / 100;
+    display.textContent = result.toString();
+    resetGlobalVariables();
+  }
 });
 
 document.getElementById('clear').addEventListener('click', () => {
   resetGlobalVariables();
-  display.textContent = strDisplay;
+  display.textContent = '0';
 });
 
+// --- Functions ---
 /**
  * Reset all global variables
  */
@@ -57,7 +60,7 @@ function resetGlobalVariables() {
  */
 function operatorClick(operatorValue) {
   if (operator) {
-    const result = operate(firstNumber, secondNumber, operator);
+    const result = Math.round(operate(firstNumber, secondNumber, operator) * 100) / 100;
     firstNumber = result;
     secondNumber = 0;
     strDisplay = result.toString();
@@ -143,5 +146,8 @@ function multiply(a, b) {
  * @returns {number} Division of a and b
  */
 function divide(a, b) {
-  return a / b;
+  if (b != 0) {
+    return a / b;
+  }
+  return 0;
 }
