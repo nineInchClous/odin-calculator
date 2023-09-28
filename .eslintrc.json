@@ -4,10 +4,13 @@
         "commonjs": true,
         "es2021": true
     },
-    "extends": "eslint:recommended",
+    "extends": ["eslint:recommended", "plugin:jsdoc/recommended"],
     "parserOptions": {
         "ecmaVersion": "latest"
     },
+    "plugins": [
+        "jsdoc"
+    ],
     "rules": {
         "linebreak-style": [
             "error",
@@ -23,6 +26,7 @@
         ],
         "no-unused-vars": [
             "warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
-        ]
+        ],
+        "jsdoc/require-description": "warn"
     }
 }
